@@ -65,7 +65,8 @@ describe('Token Farm Deployment', async() => {
 			assert.equal(result.toString(), tokens('100'), 'investor Mock DAI wallet balance correct before staking')
 		
 		// Stake Mock Dai Tokens
-		await tokenFarm.stakeTokens(tokens('100'), { from: investor})
+		await daiToken.approve(tokenFarm.address, tokens('100'), { from: investor })
+		await tokenFarm.stakeTokens(tokens('100'), { from: investor })
 	})
   })
 })  	
