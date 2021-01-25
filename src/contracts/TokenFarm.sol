@@ -36,6 +36,7 @@ constructor(DappToken _dappToken, DaiToken _daiToken) public {
          //Update Staking Status
          isStaking[msg.sender] = true;
          hasStaked[msg.sender] = true;
+		
 	}	
 
 	// 2. Unstaking Tokens (Withdraw)
