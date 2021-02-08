@@ -44,13 +44,31 @@ constructor(DappToken _dappToken, DaiToken _daiToken) public {
 	}	
 
 	// 2. Unstaking Tokens (Withdraw)
+	function unstakeTokens() public {
+		// Fetch staking balance
+		uint balance = stakingBalance[msg.sender];
+
+		// Require amount greater than zero
+		require(balance > 0, "staking balance cannot be 0");
+
+		// Transfer Mock Dai tokens to this contract for staking
+		daiToken.transfer(msg.sender,balance);
+
+		// Reset staking balance
+		stakingBalance[msg.sender] = 0;
+
+		// Update staking status
+		isStaking[msg.sender] = false;
+
+	}
 
 	// 3. Issuing Tokens
 	function issueTokens() public {
 		// Only the owner can call this function
-		require(msg.sender == owner, 'caller must be the owner');
+		require(msg.sender == owner, "caller must be the owner");
 		// Issue tokens to all stakers
-		for (uint i=0; i==stakers.length; i++) {
+		//require(msg.sender == owner, "caller must be the owner  ")
+		for (uint i=0; i<stakers.length; i++) {
 		address recipient = stakers[i];
 		uint balance = stakingBalance[recipient];
 		if(balance > 0) {
